@@ -1,0 +1,26 @@
+name: Multi User Playwright Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-bots:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Playwright
+        run: npm install playwright
+
+      - name: Install browsers
+        run: npx playwright install
+
+      - name: Run test
+        run: node multi-users.js
