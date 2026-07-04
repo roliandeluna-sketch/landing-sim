@@ -1,0 +1,40 @@
+const { chromium } = require('playwright');
+
+const URL = "https://ysyglobaloffers.netlify.app/";
+
+async function runUser(id) {
+
+  const browser = await chromium.launch({ headless: true });
+
+  const page = await browser.newPage();
+
+  console.log("Usuario", id, "entrando");
+
+  await page.goto(URL);
+
+  await page.waitForTimeout(2000);
+
+  await page.mouse.wheel(0, 700);
+
+  await page.waitForTimeout(2000);
+
+  await page.mouse.wheel(0, 1200);
+
+  await page.waitForTimeout(3000);
+
+  await page.click("body");
+
+  await browser.close();
+
+  console.log("Usuario", id, "salió");
+}
+
+async function start() {
+
+  const users = [1, 2, 3]; // 3 usuarios ahora
+
+  await Promise.all(users.map(id => runUser(id)));
+
+}
+
+start();
